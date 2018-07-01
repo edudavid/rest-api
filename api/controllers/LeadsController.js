@@ -1,6 +1,6 @@
 const Lead = require('../models/Lead')
 
-exports.get = (req, res) => {
+exports.get = (req, res, next) => {
   Lead.find({}, (err, leads) => {
     if (err) { return next(err) }
 
