@@ -9,6 +9,7 @@ exports.get = (req, res, next) => {
 };
 
 exports.create = (req, res, next) => {
+  console.log('===> ', req.body)
   const lead = new Lead(req.body);
   lead.save((err, lead) => {
     if (err) { return next(err) }
@@ -19,24 +20,28 @@ exports.create = (req, res, next) => {
 
 exports.findById = (req, res, next) => {
   Lead.findById(req.params.id, (err, lead) => {
-    if (err || lead == null) { return next(err) }
+    if (err) { return next(err) }
+    if (lead == null) { return next() }
     
     res.json(lead)
   });
 };
 
 exports.update = (req, res, next) => {
-  Lead.findOneAndUpdate( {_id: req.params.id}, req.body, {runValidators: true, new: true}, (err, lead) => {
-    if (err || lead == null) { return next(err) }
+  Lead.findOneAndUpdate(
+    { _id: req.params.id}, req.body, { runValidators: true, new: true }, (err, lead) => {
+      if (err) { return next(err) }
+      if (lead == null) { return next() }
     
-    res.json(lead)
+      res.json(lead)
   });
 };
 
 exports.delete = (req, res) => {
   Lead.findOneAndRemove({ _id: req.params.id }, (err, lead) => {
-    if (err)
-      res.send(err)
+    if (err) { return next(err) }
+    if (lead == null) { return next() }
+
     res.json({ message: 'Lead successfully deleted' })
   });
 };
