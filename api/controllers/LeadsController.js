@@ -9,7 +9,6 @@ exports.get = (req, res, next) => {
 };
 
 exports.create = (req, res, next) => {
-  console.log('===> ', req.body)
   const lead = new Lead(req.body);
   lead.save((err, lead) => {
     if (err) { return next(err) }
