@@ -1,7 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const Lead = require('./api/models/Lead')
 const ErrorHandler = require('./api/middlewares/ErrorHandler')
 const routes = require('./api/routes/LeadsRoutes')
 const swaggerJSDoc = require('swagger-jsdoc')
@@ -14,7 +13,7 @@ const swaggerSpec = swaggerJSDoc({
         version: '1.0.0',
       },
     },
-    apis: ['./api/routes/*.js', './api/models/*.js'],
+    apis: ['./api/controllers/*.js', './api/models/*.js'],
   }
 );
 
@@ -24,7 +23,7 @@ const port = process.env.PORT || 3000
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('url')
+mongoose.connect('MONGO_URL')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
