@@ -20,7 +20,7 @@ exports.create = (req, res, next) => {
 exports.findById = (req, res, next) => {
   Lead.findById(req.params.id, (err, lead) => {
     if (err) { return next(err) }
-    if (lead == null) { return next() }
+    if (!lead) { return next() }
     
     res.json(lead)
   });
@@ -30,16 +30,16 @@ exports.update = (req, res, next) => {
   Lead.findOneAndUpdate(
     { _id: req.params.id}, req.body, { runValidators: true, new: true }, (err, lead) => {
       if (err) { return next(err) }
-      if (lead == null) { return next() }
+      if (!lead) { return next() }
     
       res.json(lead)
   });
 };
 
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
   Lead.findOneAndRemove({ _id: req.params.id }, (err, lead) => {
     if (err) { return next(err) }
-    if (lead == null) { return next() }
+    if (!lead) { return next() }
 
     res.json({ message: 'Lead successfully deleted' })
   });
