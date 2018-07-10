@@ -1,5 +1,5 @@
 const Lead = require('../models/Lead')
-
+const { buildQuery } = require('../utils/LeadsQueryBuilder')
 /**
  * @swagger
  * /leads:
@@ -8,6 +8,27 @@ const Lead = require('../models/Lead')
  *     description: "Returns all leads"
  *     produces:
  *       - application/json
+ *     parameters:
+ *       - name: Page
+ *         description: "Page number"
+ *         in:  query
+ *         required: false
+ *         type: integer
+ *       - name: Limit
+ *         description: "Maximum documents per page"
+ *         in:  query
+ *         required: false
+ *         type: string
+ *       - name: sort
+ *         description: "Sorting attribute. By default is asc for desc use - before attribute name. Ex: name for asc and -name for desc"
+ *         in:  query
+ *         required: false
+ *         type: string
+ *       - name: q
+ *         description: "The query parameter. The format is attribute:value. For multiple attributes and values use: attribute1:value1,attribute2:value2 "
+ *         in:  query
+ *         required: false
+ *         type: string
  *     responses:
  *       200:
  *         description: "successful operation"
@@ -20,12 +41,10 @@ exports.get = (req, res, next) => {
   const page = parseInt(req.query.page || 1)
   const limit = parseInt(req.query.limit || 10)
   const sort = req.query.sort || 'createdAt'
-  const term = req.query.term || ''
-  const searchField = req.query.searchField
-  const query = {}
-  if(searchField) {query[searchField] = new RegExp(term)}
+  const query = buildQuery((req.query.q || '').split(','))
+  const select = '-name'
   
-  Lead.paginate(query, { page, limit, sort }, (err, leads) => {
+  Lead.paginate(query, { page, limit, sort, select }, (err, leads) => {
     if (err) { return next(err) }
 
     res.json(leads)
