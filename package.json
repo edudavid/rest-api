@@ -9,15 +9,15 @@
   },
   "author": "Eduardo A. David",
   "license": "ISC",
-  "repository" :
-  { 
-    "type" : "git",
-    "url" : "https://github.com/edudavid/rest-api.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edudavid/rest-api.git"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongoose": "^5.1.7",
+    "mongoose-paginate": "^5.0.3",
     "swagger-jsdoc": "^1.9.7",
     "swagger-ui-express": "^3.0.10",
     "validator": "^10.4.0"

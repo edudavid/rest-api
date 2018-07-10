@@ -17,7 +17,15 @@ const Lead = require('../models/Lead')
  *             $ref: '#/definitions/Lead'
  */ 
 exports.get = (req, res, next) => {
-  Lead.find({}, (err, leads) => {
+  const page = parseInt(req.query.page || 1)
+  const limit = parseInt(req.query.limit || 10)
+  const sort = req.query.sort || 'createdAt'
+  const term = req.query.term || ''
+  const searchField = req.query.searchField
+  const query = {}
+  if(searchField) {query[searchField] = new RegExp(term)}
+  
+  Lead.paginate(query, { page, limit, sort }, (err, leads) => {
     if (err) { return next(err) }
 
     res.json(leads)

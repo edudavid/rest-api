@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const validator = require('validator')
+const mongoosePaginate = require('mongoose-paginate')
 
 /**
  * @swagger
@@ -51,4 +52,5 @@ var LeadSchema = new Schema({
   }
 });
 
+LeadSchema.plugin(mongoosePaginate)
 module.exports = mongoose.model('Leads', LeadSchema);
