@@ -1,5 +1,5 @@
 const Lead = require('../models/Lead')
-const { buildQuery } = require('../utils/LeadsQueryBuilder')
+const { buildQuery } = require('../utils/QueryBuilder')
 /**
  * @swagger
  * /leads:
@@ -9,23 +9,28 @@ const { buildQuery } = require('../utils/LeadsQueryBuilder')
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: Page
+ *       - name: q
+ *         description: "The query parameter. The format is attribute:value. For multiple attributes and values use: attribute1:value1,attribute2:value2 "
+ *         in:  query
+ *         required: false
+ *         type: string
+ *       - name: fields
+ *         description: "The document fields you want to have in the returned documents"
+ *         in:  query
+ *         required: false
+ *         type: string
+ *       - name: page
  *         description: "Page number"
  *         in:  query
  *         required: false
  *         type: integer
- *       - name: Limit
+ *       - name: limit
  *         description: "Maximum documents per page"
  *         in:  query
  *         required: false
  *         type: string
  *       - name: sort
  *         description: "Sorting attribute. By default is asc for desc use - before attribute name. Ex: name for asc and -name for desc"
- *         in:  query
- *         required: false
- *         type: string
- *       - name: q
- *         description: "The query parameter. The format is attribute:value. For multiple attributes and values use: attribute1:value1,attribute2:value2 "
  *         in:  query
  *         required: false
  *         type: string
@@ -41,8 +46,8 @@ exports.get = (req, res, next) => {
   const page = parseInt(req.query.page || 1)
   const limit = parseInt(req.query.limit || 10)
   const sort = req.query.sort || 'createdAt'
+  const select = req.query.fields || ''
   const query = buildQuery((req.query.q || '').split(','))
-  const select = '-name'
   
   Lead.paginate(query, { page, limit, sort, select }, (err, leads) => {
     if (err) { return next(err) }
