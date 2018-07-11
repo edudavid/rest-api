@@ -15,7 +15,7 @@ const { buildQuery } = require('../utils/QueryBuilder')
  *         required: false
  *         type: string
  *       - name: fields
- *         description: "The document fields you want to have in the returned documents"
+ *         description: "The document fields you want to have in the returned documents. Ex: 'name,email'"
  *         in:  query
  *         required: false
  *         type: string
@@ -46,7 +46,7 @@ exports.get = (req, res, next) => {
   const page = parseInt(req.query.page || 1)
   const limit = parseInt(req.query.limit || 10)
   const sort = req.query.sort || 'createdAt'
-  const select = req.query.fields || ''
+  const select = (req.query.fields || '').replace(/\,/g, ' ')
   const query = buildQuery((req.query.q || '').split(','))
   
   Lead.paginate(query, { page, limit, sort, select }, (err, leads) => {
