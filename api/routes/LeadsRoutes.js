@@ -1,7 +1,6 @@
-const LeadsController = require('../controllers/LeadsController')
+const LeadsController = require('../controllers/LeadsController');
 
 module.exports = (app) => {
-  
   app.route('/leads')
     .get(LeadsController.get)
     .post(LeadsController.create);
@@ -10,5 +9,5 @@ module.exports = (app) => {
   app.route('/leads/:id')
     .get(LeadsController.findById)
     .put(LeadsController.update)
-    .delete(LeadsController.delete)
+    .delete(LeadsController.delete);
 };

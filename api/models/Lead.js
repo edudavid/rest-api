@@ -1,31 +1,32 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const validator = require('validator')
-const mongoosePaginate = require('mongoose-paginate')
+const mongoose = require('mongoose');
+const validator = require('validator');
+const mongoosePaginate = require('mongoose-paginate');
 
-var LeadSchema = new Schema({
+const { Schema } = mongoose;
+
+const LeadSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   phone: {
     type: String,
-    required: false
+    required: false,
   },
   email: {
     type: String,
     required: true,
-    validate: { validator: validator.isEmail, message: 'This is not a valid email' }
+    validate: { validator: validator.isEmail, message: 'This is not a valid email' },
   },
   message: {
     type: String,
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-LeadSchema.plugin(mongoosePaginate)
+LeadSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Leads', LeadSchema);
