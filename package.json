@@ -8,7 +8,6 @@
     "start": "nodemon server.js",
     "lint": "eslint"
   },
-  "author": "Eduardo A. David",
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -28,9 +27,5 @@
     "eslint-plugin-import": "^2.14.0",
     "nodemon": "^1.17.5"
   },
-  "bugs": {
-    "url": "https://github.com/edudavid/rest-api/issues"
-  },
-  "homepage": "https://github.com/edudavid/rest-api#readme",
   "keywords": []
 }

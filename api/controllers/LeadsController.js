@@ -1,10 +1,12 @@
 /* eslint no-underscore-dangle: [2, { "allow": ["_id"] }] */
+/* eslint radix: [2, "as-needed"] */
+
 const Lead = require('../models/Lead');
 const { buildQuery } = require('../utils/QueryBuilder');
 
 exports.get = (req, res, next) => {
-  const page = parseInt(req.query.page || 1, 1);
-  const limit = parseInt(req.query.limit || 10, 1);
+  const page = parseInt(req.query.page || 1);
+  const limit = parseInt(req.query.limit || 10);
   const sort = req.query.sort || 'createdAt';
   const select = (req.query.fields || '').replace(/,/g, ' ');
   const query = buildQuery((req.query.q || '').split(','));
