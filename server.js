@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://rest-api:To7naqWAkNG7E1zC@cluster0-kh4jw.mongodb.net/test?retryWrites=true');
+mongoose.connect('MONGO_URL');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
