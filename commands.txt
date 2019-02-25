@@ -1,0 +1,4 @@
+terraform init
+terraform apply -auto-approve
+./ci/docker.sh
+CI_ENVIRONMENT_SLUG="prod" ./ci/deploy.sh
