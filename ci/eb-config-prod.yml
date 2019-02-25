@@ -1,0 +1,22 @@
+branch-defaults:
+  default:
+    environment: rest-api-prod    
+  master:
+    environment: rest-api-prod
+environment-defaults:
+  ad-insertion-dsv:
+    branch: null
+    repository: null
+global:
+  application_name: rest-api
+  default_ec2_keyname: rest-api
+  default_platform: arn:aws:elasticbeanstalk:sa-east-1::platform/Docker running on 64bit Amazon Linux/2.8.4
+  default_region: us-east-1
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: git
+  workspace_type: Application
+deploy:
+  artifact: ./Dockerrun.aws.json
